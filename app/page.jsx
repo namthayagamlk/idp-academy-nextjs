@@ -1,4 +1,4 @@
-"use client" // Required for hooks and events
+"use client" 
 import Image from "next/image"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -11,19 +11,7 @@ export default function Home() {
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
-  // Demo student data
-  // const students = [
-  //   {
-  //     email: "student1@example.com",
-  //     password: "12345",
-  //     name: "Thilina Heshan",
-  //   },
-  //   { email: "student2@example.com", password: "12345", name: "Jane Doe" },
-  //   { email: "student3@example.com", password: "12345", name: "John Smith" },
-  //   { email: "student4@example.com", password: "12345", name: "Alice Brown" },
-  //   { email: "student5@example.com", password: "12345", name: "Bob White" },
-  // ]
-
+ 
   const handleLogin = (e) => {
     e.preventDefault()
     setLoading(true)
@@ -42,7 +30,7 @@ export default function Home() {
       }
 
       setLoading(false)
-    }, 3000) // simulate network delay
+    }, 3000) 
   }
 
   return (

@@ -13,20 +13,20 @@ import {
 } from "react-icons/fa"
 import { students } from "@/lib/data"
 
-const IDLE_TIMEOUT = 15 * 60 * 1000 // 15 minutes in milliseconds
+const IDLE_TIMEOUT = 15 * 60 * 1000 
 
 const Dashboard = () => {
   const [student, setStudent] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const idleTimer = useRef(null)
 
-  // Function to logout student
+
   const logout = () => {
     localStorage.removeItem("student")
     window.location.href = "/"
   }
 
-  // Reset idle timer on activity
+
   const resetIdleTimer = () => {
     if (idleTimer.current) clearTimeout(idleTimer.current)
     idleTimer.current = setTimeout(() => {
@@ -34,7 +34,7 @@ const Dashboard = () => {
     }, IDLE_TIMEOUT)
   }
 
-  // Load student data from localStorage (client-side only)
+
   useEffect(() => {
     const loadStudent = () => {
       try {
@@ -42,7 +42,7 @@ const Dashboard = () => {
         if (data) {
           setStudent(JSON.parse(data))
         } else if (students.length > 0) {
-          // fallback: use first student from mock data
+   
           setStudent(students[0])
         }
       } catch (err) {
@@ -52,12 +52,12 @@ const Dashboard = () => {
       }
     }
 
-    // Run on next tick to avoid hydration mismatch
+
     const timer = setTimeout(loadStudent, 0)
     return () => clearTimeout(timer)
   }, [])
 
-  // Sync student data if localStorage changes (in another tab)
+
   useEffect(() => {
     const handleStorage = () => {
       const data = localStorage.getItem("student")
@@ -67,18 +67,18 @@ const Dashboard = () => {
     return () => window.removeEventListener("storage", handleStorage)
   }, [])
 
-  // Set up idle timer for auto-logout
+
   useEffect(() => {
     if (!student) return
 
-    // Events to listen for user activity
+
     const events = ["mousemove", "keydown", "scroll", "touchstart"]
 
     events.forEach((event) => {
       window.addEventListener(event, resetIdleTimer)
     })
 
-    // Start the timer initially
+
     resetIdleTimer()
 
     // Cleanup
@@ -99,7 +99,7 @@ const Dashboard = () => {
     )
   }
 
-  // If no student data
+
   if (!student) {
     return (
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -110,9 +110,9 @@ const Dashboard = () => {
 
   return (
     <div className="bg-gray-50 text-gray-800 font-sans px-4 md:px-20 min-h-screen">
-      {/* HEADER */}
+
       <header className="flex justify-between items-center p-4 bg-white shadow relative flex-wrap">
-        {/* Centered Logo */}
+ 
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2">
           <Image
             src="/idp_ielts_logo.svg"
@@ -123,7 +123,7 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Logout */}
+   
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={logout}
@@ -134,7 +134,7 @@ const Dashboard = () => {
         </div>
       </header>
 
-      {/* Greeting Section */}
+
       <section className="p-4 md:p-6 mt-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
@@ -150,7 +150,7 @@ const Dashboard = () => {
         </div>
       </section>
 
-      {/* Test Result Section */}
+
       <section className="p-4 md:p-6">
         <div className="bg-white p-5 rounded-lg shadow w-full md:w-1/2">
           <h3 className="text-lg font-bold mb-1 text-red-600">
@@ -205,7 +205,7 @@ const Dashboard = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+ 
       <section className="p-4 md:p-6 mt-8">
         <div className="border-s-4 border-red-600 pl-4">
           <h3 className="text-xl font-bold mb-6">Services</h3>
@@ -233,7 +233,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Card 2 */}
+
           <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
             <Image
               src="/dashboard-books.svg"
@@ -253,7 +253,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Card 3 */}
+
           <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
             <Image
               src="/community-icon.svg"

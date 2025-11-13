@@ -4,25 +4,24 @@ import Link from "next/link"
 import { useEffect, useState, useRef } from "react"
 import { FaCheck } from "react-icons/fa"
 
-const IDLE_TIMEOUT = 15 * 60 * 1000 // 15 minutes
+const IDLE_TIMEOUT = 15 * 60 * 1000 
 
 const TestResultPage = () => {
   const [student, setStudent] = useState(null)
   const idleTimer = useRef(null)
 
-  // Logout function
+
   const handleLogout = () => {
     localStorage.removeItem("student")
     window.location.href = "/"
   }
 
-  // Reset idle timer
+
   const resetIdleTimer = () => {
     if (idleTimer.current) clearTimeout(idleTimer.current)
     idleTimer.current = setTimeout(handleLogout, IDLE_TIMEOUT)
   }
 
-  // Load student data
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -35,7 +34,7 @@ const TestResultPage = () => {
     setStudent(JSON.parse(data))
   }, [])
 
-  // Set up idle timer for auto-logout
+
   useEffect(() => {
     if (!student) return
 
@@ -45,10 +44,10 @@ const TestResultPage = () => {
       window.addEventListener(event, resetIdleTimer)
     })
 
-    // Start timer initially
+
     resetIdleTimer()
 
-    // Cleanup
+
     return () => {
       events.forEach((event) => {
         window.removeEventListener(event, resetIdleTimer)
@@ -101,7 +100,7 @@ const TestResultPage = () => {
       </header>
 
       <section className="px-4 sm:px-8 py-10 sm:py-20">
-        {/* Student Info */}
+
         <div className="flex items-center mb-10">
           <i className="fa-regular fa-user text-sm sm:text-base"></i>
           <span className="font-semibold text-base text-gray-700 ml-2">
@@ -109,12 +108,12 @@ const TestResultPage = () => {
           </span>
         </div>
 
-        {/* Title */}
+
         <h2 className="text-lg sm:text-xl font-bold text-gray-800 border-b-4 border-red-600 inline-block pb-1">
           Past Tests
         </h2>
 
-        {/* Result Box */}
+
         <div className="mt-4 w-full bg-linear-to-r from-[#0FA99E] via-[#54B96D] to-[#90C843] text-white px-4 sm:px-6 py-3 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left shadow gap-2 sm:gap-0 overflow-x-hidden">
           <p className="font-semibold whitespace-nowrap flex items-center">
             Result Available
@@ -128,7 +127,7 @@ const TestResultPage = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
+ 
         <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-5">
           <button className="flex items-center justify-center gap-2 border border-red-600 text-red-600 px-3 sm:px-4 py-2 text-sm sm:text-base font-medium hover:bg-red-600 hover:text-white transition w-full sm:w-auto">
             <i className="fa-solid fa-rotate-right"></i>
@@ -149,7 +148,7 @@ const TestResultPage = () => {
           </Link>
         </div>
 
-        {/* Scores */}
+  
         <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8">
           {/* Overall */}
           <div className="text-center">
@@ -161,7 +160,7 @@ const TestResultPage = () => {
             </p>
           </div>
 
-          {/* Individual Scores */}
+
           <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full sm:w-auto max-w-sm sm:max-w-none">
             {student.tests
               .filter((t) => t.name !== "Overall")
