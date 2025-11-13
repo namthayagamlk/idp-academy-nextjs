@@ -229,7 +229,7 @@ const Dashboard = () => {
               bookings.
             </p>
             <div className="mt-4 text-right">
-              <span className="font-bold text-4xl">→</span>
+             <Link href="/result"> <span className="font-bold text-4xl">→</span></Link>
             </div>
           </div>
 
@@ -249,7 +249,9 @@ const Dashboard = () => {
               Get ready for IELTS and prepare with these free resources.
             </p>
             <div className="mt-4 text-right">
+              <Link href="https://www.idp.com/australia/ielts/prepare-for-ielts/">
               <span className="font-bold text-4xl">→</span>
+              </Link>
             </div>
           </div>
 
@@ -269,7 +271,8 @@ const Dashboard = () => {
               Join the IELTS community and connect with IELTS and test takers.
             </p>
             <div className="mt-4 text-right">
-              <span className="font-bold text-4xl">→</span>
+<Link  href="https://www.idp.com/australia/blog/latest-visa-news/">              
+<span className="font-bold text-4xl">→</span></Link>
             </div>
           </div>
         </div>
