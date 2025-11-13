@@ -142,7 +142,7 @@ const Dashboard = () => {
             <p className="text-gray-600">{student.email}</p>
           </div>
           <Link
-            href="https://takeielts.britishcouncil.org/take-ielts/book"
+            href="https://www.idp.com/australia/ielts/book-a-test/"
             className="bg-red-600 text-white px-4 py-2 rounded-full shadow hover:bg-red-700 text-center transition"
           >
             Book Now

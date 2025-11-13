@@ -90,7 +90,7 @@ const TestResultPage = () => {
           </button>
 
           <a
-            href="https://takeielts.britishcouncil.org/take-ielts/book"
+            href="https://www.idp.com/australia/ielts/book-a-test/"
             className="flex items-center justify-center gap-2 px-4 sm:px-5 h-10 sm:h-16 text-sm sm:text-base text-white font-semibold bg-linear-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 transition w-full sm:w-auto"
           >
             <i className="fa-regular fa-calendar"></i>
@@ -129,14 +129,14 @@ const TestResultPage = () => {
 
  
         <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-5">
-          <button className="flex items-center justify-center gap-2 border border-red-600 text-red-600 px-3 sm:px-4 py-2 text-sm sm:text-base font-medium hover:bg-red-600 hover:text-white transition w-full sm:w-auto">
+          <Link href="https://www.idp.com/australia/ielts/book-a-test/" className="flex items-center justify-center gap-2 border border-red-600 text-red-600 px-3 sm:px-4 py-2 text-sm sm:text-base font-medium hover:bg-red-600 hover:text-white transition w-full sm:w-auto">
             <i className="fa-solid fa-rotate-right"></i>
             Rebook Test
-          </button>
+          </Link>
 
-          <button className="border border-red-600 text-red-600 px-3 sm:px-4 py-2 text-sm sm:text-base font-medium hover:bg-red-600 hover:text-white transition w-full sm:w-auto">
+          <Link href="https://www.idp.com/australia/ielts/book-a-test/" className="border border-red-600 text-red-600 px-3 sm:px-4 py-2 text-sm sm:text-base font-medium hover:bg-red-600 hover:text-white transition w-full sm:w-auto">
             Request Re-mark
-          </button>
+          </Link>
 
           <Link
             href={`/file/${student.pdfFileName}`}
