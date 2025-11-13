@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import toast, { Toaster } from "react-hot-toast"
 
 import { students } from "@/lib/data"
+import Link from "next/link"
 export default function Home() {
   const router = useRouter()
   const [email, setEmail] = useState("")
@@ -129,12 +130,12 @@ export default function Home() {
 
         <div className="mt-6 text-center text-sm text-gray-600">
           Don’t have an account?{" "}
-          <a
-            href="/signup"
+          <Link
+            href="https://www.idp.com/australia/ielts/book-a-test/"
             className="text-red-600 font-medium hover:underline"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
       </div>
     </div>
