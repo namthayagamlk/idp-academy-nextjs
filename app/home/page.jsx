@@ -18,7 +18,7 @@ const IDLE_TIMEOUT = 15 * 60 * 1000
 const Dashboard = () => {
   const [student, setStudent] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [dropdownOpen, setDropdownOpen] = useState(false) // Dropdown state
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const idleTimer = useRef(null)
 
   const logout = () => {
@@ -99,11 +99,6 @@ const Dashboard = () => {
     )
   }
 
-  // Function to toggle the dropdown
-  const handleToggleDropdown = () => {
-    setDropdownOpen((prevState) => !prevState)
-  }
-
   return (
     <div className="bg-gray-100 text-gray-800 font-sans px-4 md:px-20 min-h-screen">
       <header className="flex justify-between items-center p-4 bg-white shadow relative flex-wrap">
@@ -118,18 +113,11 @@ const Dashboard = () => {
             />
           </Link>
         </div>
-
-        {/* Avatar with the student's first letter */}
-        <div
-          onClick={handleToggleDropdown}
-          className="ml-auto w-10 h-10 flex items-center justify-center bg-gray-500 text-white rounded-full font-bold cursor-pointer"
-        >
+        <div className="ml-auto w-10 h-10 flex items-center justify-center bg-gray-500 text-white rounded-full font-bold cursor-pointer" onClick={() => setDropdownOpen(!dropdownOpen)}>
           {student?.name?.charAt(0)?.toUpperCase()}
         </div>
-
-        {/* Dropdown Menu */}
         {dropdownOpen && (
-          <div className="absolute right-4 mt-20 w-20 bg-white border-red-600 rounded-sm shadow-md">
+          <div className="absolute right-4 mt-20 w-20 bg-white border-gray-50 rounded-sm shadow-md">
             <button
               onClick={logout}
               className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
@@ -231,7 +219,71 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {/* Cards go here */}
+          {/* Card 1 */}
+          <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
+            <Image
+              src="/dashboard-calendar.svg"
+              alt="icon"
+              width={40}
+              height={40}
+              className="mb-3"
+            />
+            <h4 className="text-lg font-bold text-gray-800 mb-1">
+              My tests and results
+            </h4>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Access your IELTS test results and manage your upcoming test
+              bookings.
+            </p>
+            <div className="mt-4 text-right">
+              <Link href="/result">
+                {" "}
+                <span className="font-bold text-4xl">→</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
+            <Image
+              src="/dashboard-books.svg"
+              alt="icon"
+              width={40}
+              height={40}
+              className="mb-3"
+            />
+            <h4 className="text-lg font-bold text-gray-800 mb-1">
+              My IELTS preparation
+            </h4>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Get ready for IELTS and prepare with these free resources.
+            </p>
+            <div className="mt-4 text-right">
+              <Link href="https://www.idp.com/australia/ielts/prepare-for-ielts/">
+                <span className="font-bold text-4xl">→</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
+            <Image
+              src="/community-icon.svg"
+              alt="icon"
+              width={40}
+              height={40}
+              className="mb-3"
+            />
+            <h4 className="text-lg font-bold text-gray-800 mb-1">
+              My IELTS community
+            </h4>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Join the IELTS community and connect with IELTS and test takers.
+            </p>
+            <div className="mt-4 text-right">
+              <Link href="https://www.idp.com/australia/blog/latest-visa-news/">
+                <span className="font-bold text-4xl">→</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

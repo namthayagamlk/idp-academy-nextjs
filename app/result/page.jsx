@@ -131,11 +131,18 @@ const TestResultPage = () => {
           </Link>
 
           <Link
-            href="/test"
+            href="#"
             className="text-gray-700 font-medium"
             onClick={() => setMobileMenu(false)}
           >
             Test
+          </Link>
+          <Link
+            href="/"
+            className="text-gray-700 font-medium"
+            onClick={() => setMobileMenu(false)}
+          >
+            Logout
           </Link>
         </div>
       )}
