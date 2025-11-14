@@ -11,7 +11,10 @@ import {
   FaEdit,
   FaFileAlt,
   FaEnvelope,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa"
+import { HiCursorClick } from "react-icons/hi";
 import { CiUser } from "react-icons/ci"
 import { HiCalendarDateRange } from "react-icons/hi2"
 import Image from "next/image"
@@ -22,6 +25,7 @@ const TestResultPage = () => {
   const [student, setStudent] = useState(null)
   const [isExpanded, setIsExpanded] = useState(false)
   const [open, setOpen] = useState(false)
+  const [mobileMenu, setMobileMenu] = useState(false)
   const idleTimer = useRef(null)
 
   const handleLogout = () => {
@@ -80,32 +84,34 @@ const TestResultPage = () => {
     <div className="bg-gray-50 text-gray-800 font-sans mt-6 px-4 0sm:px-8 md: overflow-x-hidden">
       {/* Header */}
       <header className="flex mt-4 flex-row justify-between items-center px-4 sm:px-8 bg-white shadow-lg h-auto sm:h-16 py-3 sm:py-0 gap-4 sm:gap-0">
-        {/* <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-16 text-center sm:text-left">
-          <Image
-            src="/idp_ielts_logo.svg"
-            alt="Logo"
-            width={160}
-            height={160}
-            className="rounded-full"
-          />
-        </div> */}
-        <div className="flex items-center justify-center sm:justify-start gap-2">
+        
+        {/* Mobile Hamburger + Logo */}
+        <div className="flex items-center gap-3">
+          {/* Hamburger Button (Mobile Only) */}
+          <button
+            className="sm:hidden text-gray-700"
+            onClick={() => setMobileMenu(!mobileMenu)}
+          >
+            {mobileMenu ? <FaTimes size={22} /> : <FaBars size={22} />}
+          </button>
+
+          {/* Logo */}
           <Link href="https://www.idp.com/australia/study-to-migrate/skilled-occupation-list-australia/">
-          <h1 className="text-xl sm:text-4xl  font-bold text-red-600">IELTS</h1>
+            <h1 className="text-xl sm:text-4xl font-bold text-red-600">
+              IELTS
+            </h1>
           </Link>
-         
         </div>
-        <div className=" flex flex-row border-l pl-6  border-gray-300 sm:flex-row items-center gap-3 sm:gap-6">
-          <div>
-            {/* {student?.name?.charAt(0)?.toUpperCase()} */}
+
+        {/* Right Side */}
+        <div className="flex flex-row border-l pl-6 border-gray-300 sm:flex-row items-center gap-3 sm:gap-6">
           <Link href="/home">
-          <CiUser size={24} />
+            <CiUser size={24} />
           </Link>
-          </div>
 
           <Link
             href="https://www.idp.com/australia/ielts/book-a-test/"
-            className="flex items-center justify-center  px-2 sm:px-5 h-10 sm:h-16 text-sm sm:text-base text-gray-200 font-semibold bg-linear-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 transition w-full sm:w-auto"
+            className="flex items-center justify-center px-2 sm:px-5 h-10 sm:h-16 text-sm sm:text-base text-gray-200 font-semibold bg-linear-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 transition w-full sm:w-auto"
           >
             <HiCalendarDateRange />
             Book a Test
@@ -113,10 +119,32 @@ const TestResultPage = () => {
         </div>
       </header>
 
+      {/* Mobile Dropdown Menu */}
+      {mobileMenu && (
+        <div className="sm:hidden bg-white shadow-md px-6 py-4 flex flex-col gap-4 animate-slide-down">
+          <Link
+            href="/home"
+            className="text-gray-700 font-medium border-b pb-2"
+            onClick={() => setMobileMenu(false)}
+          >
+            Dashboard
+          </Link>
+
+          <Link
+            href="/test"
+            className="text-gray-700 font-medium"
+            onClick={() => setMobileMenu(false)}
+          >
+            Test
+          </Link>
+        </div>
+      )}
+
       <section className="px-4 sm:px-8 py-10 sm:py-20">
         <div className="flex items-center mb-10">
           <i className="fa-regular fa-user text-sm sm:text-base"></i>
         </div>
+
         <div className="px- sm:px-20">
           <h2 className="text-lg sm:text-xl font-bold text-gray-800 border-b-4 border-red-600 inline-block pb-1">
             Past Tests
@@ -140,7 +168,7 @@ const TestResultPage = () => {
               href="https://www.idp.com/srilanka/"
               className="flex items-center justify-center gap-2 border border-red-600 text-red-600 px-3 sm:px-4 py-2 text-sm sm:text-base font-medium hover:bg-red-600 hover:text-white transition w-full sm:w-auto"
             >
-              <i className="fa-solid fa-rotate-right"></i>
+            <HiCursorClick />
               Rebook Test
             </Link>
 
@@ -164,9 +192,7 @@ const TestResultPage = () => {
           <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8">
             {/* Overall */}
             <div className="text-center">
-              <h3 className="text-base sm:text-lg font-semibold">
-                Overall Score
-              </h3>
+              <h3 className="text-base sm:text-lg font-semibold">Overall Score</h3>
               <p className="text-6xl font-semibold mt-2 text-red-600">
                 {overallScore?.toFixed(1)}
               </p>
@@ -178,9 +204,9 @@ const TestResultPage = () => {
                 .map((test, index) => (
                   <div
                     key={test.name ? test.name : index}
-                    className="bg-white  text-gray-800 p-3 sm:p-4 text-center shadow-2xl"
+                    className="bg-white text-gray-800 p-3 sm:p-4 text-center shadow-2xl"
                   >
-                    <button className="border  text-[#0FA99E] px-2 text-base sm:px-3 py-1 font-bold mb-2  sm:text-base">
+                    <button className="border text-[#0FA99E] px-2 text-base sm:px-3 py-1 font-bold mb-2 sm:text-base">
                       Retake
                     </button>
                     <h3 className="text-sm sm:text-base font-semibold">
@@ -193,24 +219,19 @@ const TestResultPage = () => {
                 ))}
             </div>
           </div>
+
           <div className="mt-8">
             <h2 className="font-semibold text-gray-800 border-b-4 border-red-600 inline-block pb-1 text-base sm:text-lg">
               Your score explained
             </h2>
             <p className="text-xs sm:text-sm mt-2 leading-relaxed text-justify sm:text-left">
-              The test taker conveys and understands only general meaning in
-              very familiar situations. There are frequent breakdowns in
+              The test taker conveys and understands only general meaning in very familiar situations. There are frequent breakdowns in{" "}
               {isExpanded ? (
                 <span>
-                  {/* Full text */}
-                  more complex or unfamiliar situations. These breakdowns can
-                  lead to difficulties with communication and comprehension.
+                  more complex or unfamiliar situations. These breakdowns can lead to difficulties with communication and comprehension.
                 </span>
               ) : (
-                <span>
-                  {/* Shortened version */}
-                  more familiar situations.
-                </span>
+                <span>more familiar situations.</span>
               )}
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
@@ -220,13 +241,12 @@ const TestResultPage = () => {
               </button>
             </p>
           </div>
+
           <div className="mt-8">
-            {/* Header */}
             <button
               onClick={() => setOpen(!open)}
               className="flex items-center gap-2 font-semibold text-red-600 text-base sm:text-lg focus:outline-none"
             >
-              {/* Arrow Icon */}
               {open ? (
                 <FaChevronDown className="transition-transform duration-300" />
               ) : (
@@ -235,22 +255,18 @@ const TestResultPage = () => {
               <span>View options for test</span>
             </button>
 
-            {/* Collapsible Content */}
             {open && (
               <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-6 text-gray-700 text-sm">
-                {/* Notify Institution */}
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-md hover:shadow-md transition cursor-pointer">
                   <FaEnvelope className="text-[#0FA99E]" />
                   <span>Notify Institution</span>
                 </div>
 
-                {/* Update Details */}
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-md hover:shadow-md transition cursor-pointer">
                   <FaEdit className="text-[#0FA99E]" />
                   <span>Update Details</span>
                 </div>
 
-                {/* Terms & Conditions */}
                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-md hover:shadow-md transition cursor-pointer">
                   <FaFileAlt className="text-[#0FA99E]" />
                   <span>Terms & Conditions</span>
