@@ -13,19 +13,17 @@ import {
 } from "react-icons/fa"
 import { students } from "@/lib/data"
 
-const IDLE_TIMEOUT = 15 * 60 * 1000 
+const IDLE_TIMEOUT = 15 * 60 * 1000
 
 const Dashboard = () => {
   const [student, setStudent] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const idleTimer = useRef(null)
 
-
   const logout = () => {
     localStorage.removeItem("student")
     window.location.href = "/"
   }
-
 
   const resetIdleTimer = () => {
     if (idleTimer.current) clearTimeout(idleTimer.current)
@@ -34,7 +32,6 @@ const Dashboard = () => {
     }, IDLE_TIMEOUT)
   }
 
-
   useEffect(() => {
     const loadStudent = () => {
       try {
@@ -42,7 +39,6 @@ const Dashboard = () => {
         if (data) {
           setStudent(JSON.parse(data))
         } else if (students.length > 0) {
-   
           setStudent(students[0])
         }
       } catch (err) {
@@ -52,11 +48,9 @@ const Dashboard = () => {
       }
     }
 
-
     const timer = setTimeout(loadStudent, 0)
     return () => clearTimeout(timer)
   }, [])
-
 
   useEffect(() => {
     const handleStorage = () => {
@@ -67,17 +61,14 @@ const Dashboard = () => {
     return () => window.removeEventListener("storage", handleStorage)
   }, [])
 
-
   useEffect(() => {
     if (!student) return
-
 
     const events = ["mousemove", "keydown", "scroll", "touchstart"]
 
     events.forEach((event) => {
       window.addEventListener(event, resetIdleTimer)
     })
-
 
     resetIdleTimer()
 
@@ -99,7 +90,6 @@ const Dashboard = () => {
     )
   }
 
-
   if (!student) {
     return (
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -109,10 +99,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="bg-gray-50 text-gray-800 font-sans px-4 md:px-20 min-h-screen">
-
+    <div className="bg-gray-100 text-gray-800 font-sans px-4 md:px-20 min-h-screen">
       <header className="flex justify-between items-center p-4 bg-white shadow relative flex-wrap">
- 
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2">
           <Image
             src="/idp_ielts_logo.svg"
@@ -122,18 +110,18 @@ const Dashboard = () => {
             className="rounded-full"
           />
         </div>
-
-   
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto w-10 h-10 flex items-center justify-center bg-gray-500 text-white rounded-full font-bold">
+          {student?.name?.charAt(0)?.toUpperCase()}
+        </div>
+        {/* <div className="ml-auto flex items-center gap-2">
           <button
             onClick={logout}
             className="text-gray-800 font-semibold text-sm hover:underline"
           >
             Logout
           </button>
-        </div>
+        </div> */}
       </header>
-
 
       <section className="p-4 md:p-6 mt-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -150,9 +138,11 @@ const Dashboard = () => {
         </div>
       </section>
 
-
-      <section className="p-4 md:p-6">
-        <div className="bg-white p-5 rounded-lg shadow w-full md:w-1/2">
+      <section className="md:p-6">
+        <div
+          className="bg-white p-5 rounded-lg shadow w-full md:w-1/2 border border-transparent hover:border-black focus:border-black transition-colors duration-300 cursor-pointer"
+          tabIndex={0} // enables focus for click/keyboard
+        >
           <h3 className="text-lg font-bold mb-1 text-red-600">
             Your test result is available
           </h3>
@@ -160,52 +150,64 @@ const Dashboard = () => {
             Go to My Test & Results to view your score and detailed results.
           </p>
 
-          <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+          <div className="mt-6 bg-gray-300 p-4 rounded-lg">
             <h3 className="text-lg font-bold mb-4">
               IELTS {student.testType || "General Training"}
             </h3>
 
-            <div className="space-y-2 text-gray-700 text-sm">
-              <div className="flex flex-wrap items-center gap-2 md:gap-4">
-                <FaCalendar size={18} />
-                <span>{student.testDetails.date}</span>
-                <FaClock size={18} />
-                <span>{student.testDetails.time}</span>
+            <div className="space-y-2 text-gray-700 text-sm py-10">
+              {/* Date & Time */}
+              <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 md:gap-4">
+                <div className="flex items-center gap-2">
+                  <FaCalendar />
+                  <span>{student.testDetails.date}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaClock />
+                  <span>{student.testDetails.time}</span>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2 md:gap-4">
-                <FaDesktop size={18} />
-                <span>{student.testDetails.mode}</span>
-                <FaBuilding size={18} />
-                <span>{student.testDetails.center}</span>
+              {/* Mode & Center */}
+              <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 md:gap-4">
+                <div className="flex items-center gap-2">
+                  <FaDesktop />
+                  <span>{student.testDetails.mode}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaBuilding />
+                  <span>{student.testDetails.center}</span>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-start gap-4">
-                <FaMapMarkerAlt size={18} />
-                <span>{student.testDetails.address}</span>
+              {/* Address */}
+              <div className="flex flex-col md:flex-row items-start gap-2 md:gap-4">
+                <div className="flex items-start gap-2">
+                  <FaMapMarkerAlt />
+                  <span>{student.testDetails.address}</span>
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="flex  md:flex-row gap-4 md:gap-6 pt-10">
-              <Link href="/result">
-                <span className="flex items-center gap-2 underline text-sm">
-                  View Results
-                </span>
-              </Link>
-              <Link
-                href={`/file/${student.pdfFileName}`}
-                download={student.pdfFileName}
-              >
-                <span className="flex items-center gap-2 underline text-sm">
-                  Download eTRF
-                </span>
-              </Link>
-            </div>
+          <div className="flex md:flex-row gap-4 md:gap-6 pt-10">
+            <Link href="/result">
+              <span className="flex items-center gap-2 underline text-sm">
+                View Results
+              </span>
+            </Link>
+            <Link
+              href={`/file/${student.pdfFileName}`}
+              download={student.pdfFileName}
+            >
+              <span className="flex items-center gap-2 underline text-sm">
+                Download eTRF
+              </span>
+            </Link>
           </div>
         </div>
       </section>
 
- 
       <section className="p-4 md:p-6 mt-8">
         <div className="border-s-4 border-red-600 pl-4">
           <h3 className="text-xl font-bold mb-6">Services</h3>
@@ -229,10 +231,12 @@ const Dashboard = () => {
               bookings.
             </p>
             <div className="mt-4 text-right">
-             <Link href="/result"> <span className="font-bold text-4xl">→</span></Link>
+              <Link href="/result">
+                {" "}
+                <span className="font-bold text-4xl">→</span>
+              </Link>
             </div>
           </div>
-
 
           <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
             <Image
@@ -250,11 +254,10 @@ const Dashboard = () => {
             </p>
             <div className="mt-4 text-right">
               <Link href="https://www.idp.com/australia/ielts/prepare-for-ielts/">
-              <span className="font-bold text-4xl">→</span>
+                <span className="font-bold text-4xl">→</span>
               </Link>
             </div>
           </div>
-
 
           <div className="bg-white p-5 rounded-lg shadow hover:shadow-md transition relative">
             <Image
@@ -271,8 +274,9 @@ const Dashboard = () => {
               Join the IELTS community and connect with IELTS and test takers.
             </p>
             <div className="mt-4 text-right">
-<Link  href="https://www.idp.com/australia/blog/latest-visa-news/">              
-<span className="font-bold text-4xl">→</span></Link>
+              <Link href="https://www.idp.com/australia/blog/latest-visa-news/">
+                <span className="font-bold text-4xl">→</span>
+              </Link>
             </div>
           </div>
         </div>

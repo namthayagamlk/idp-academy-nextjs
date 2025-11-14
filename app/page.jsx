@@ -47,13 +47,15 @@ export default function Home() {
         }}
       />
       <div className="flex items-center gap-2 mb-6">
-        <Image
+       <Link href="https://chatgpt.com/">
+       <Image
           src="/idp_ielts_logo.svg"
           alt="Logo"
           width={200}
           height={100}
           className="rounded-full"
         />
+       </Link>
       </div>
 
       <div className="bg-white w-full max-w-md rounded-2xl shadow-md p-8">
