@@ -102,13 +102,16 @@ const Dashboard = () => {
     <div className="bg-gray-100 text-gray-800 font-sans px-4 md:px-20 min-h-screen">
       <header className="flex justify-between items-center p-4 bg-white shadow relative flex-wrap">
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2">
-          <Image
+        <Link href="https://www.idp.com/australia/study-to-migrate/skilled-occupation-list-australia/">
+        <Image
             src="/idp_ielts_logo.svg"
             alt="Logo"
             width={160}
             height={160}
             className="rounded-full"
           />
+        </Link>
+         
         </div>
         <div className="ml-auto w-10 h-10 flex items-center justify-center bg-gray-500 text-white rounded-full font-bold">
           {student?.name?.charAt(0)?.toUpperCase()}

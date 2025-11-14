@@ -90,12 +90,17 @@ const TestResultPage = () => {
           />
         </div> */}
         <div className="flex items-center justify-center sm:justify-start gap-2">
+          <Link href="https://www.idp.com/australia/study-to-migrate/skilled-occupation-list-australia/">
           <h1 className="text-xl sm:text-4xl  font-bold text-red-600">IELTS</h1>
+          </Link>
+         
         </div>
         <div className=" flex flex-row border-l pl-6  border-gray-300 sm:flex-row items-center gap-3 sm:gap-6">
           <div>
             {/* {student?.name?.charAt(0)?.toUpperCase()} */}
-            <CiUser size={24} />
+          <Link href="/home">
+          <CiUser size={24} />
+          </Link>
           </div>
 
           <Link
